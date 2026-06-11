@@ -1,0 +1,17 @@
+{
+  "name": "mapped",
+  "owner": {
+    "name": "Mapped",
+    "email": "jason@mapped.com"
+  },
+  "metadata": {
+    "description": "Mapped's Claude Code plugins."
+  },
+  "plugins": [
+    {
+      "name": "mapped-mcp",
+      "source": "./mapped-mcp",
+      "description": "Generate Mapped GraphQL queries from natural language (and optionally run them) via the mapped-mcp server."
+    }
+  ]
+}
