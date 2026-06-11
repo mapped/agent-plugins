@@ -1,0 +1,21 @@
+{
+  "name": "mapped-mcp",
+  "version": "0.1.0",
+  "description": "Generate Mapped GraphQL queries from natural language (and optionally run them) via the mapped-mcp server.",
+  "author": {
+    "name": "Mapped",
+    "email": "jason@mapped.com"
+  },
+  "homepage": "https://github.com/mapped/mapped-mcp",
+  "repository": "https://github.com/mapped/mapped-mcp",
+  "keywords": ["mcp", "mapped", "graphql"],
+  "mcpServers": {
+    "mapped": {
+      "type": "http",
+      "url": "https://mcp.mapped.com/mcp",
+      "headers": {
+        "Authorization": "token ${MAPPED_PAT}"
+      }
+    }
+  }
+}
