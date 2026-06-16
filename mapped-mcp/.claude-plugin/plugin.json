@@ -1,14 +1,14 @@
 {
   "name": "mapped-mcp",
   "version": "0.1.0",
-  "description": "Generate Mapped GraphQL queries from natural language (and optionally run them) via the mapped-mcp server.",
+  "description": "Access Mapped's building data graph via the mapped-mcp server: generate and run Mapped GraphQL queries from natural language, and explore the Mapped ontology — entity-type hierarchy, tag search, and type definitions.",
   "author": {
     "name": "Mapped",
     "email": "jason@mapped.com"
   },
   "homepage": "https://github.com/mapped/mapped-mcp",
   "repository": "https://github.com/mapped/mapped-mcp",
-  "keywords": ["mcp", "mapped", "graphql"],
+  "keywords": ["mcp", "mapped", "graphql", "ontology"],
   "mcpServers": {
     "mapped": {
       "type": "http",
