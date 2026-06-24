@@ -12,6 +12,11 @@
       "name": "mapped-mcp",
       "source": "./mapped-mcp",
       "description": "Generate Mapped GraphQL queries from natural language (and optionally run them) via the mapped-mcp server."
+    },
+    {
+      "name": "mapped-graphql",
+      "source": "./mapped-graphql",
+      "description": "Three tools for the Mapped GraphQL API: a schema loader (introspects and returns the schema file path), a graphql-core based query validator, and a query executor (run via uv)."
     }
   ]
 }

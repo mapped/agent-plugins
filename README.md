@@ -95,3 +95,37 @@ sessions — two things differ from desktop:
   `MAPPED_PAT=...`. `${VAR}` expansion runs the same as on desktop. Note: there's
   no dedicated secrets store yet — the value is visible to anyone who can edit
   that environment.
+
+### `mapped-graphql`
+
+Three local tools for the Mapped GraphQL API — no MCP server required, just
+[`uv`](https://docs.astral.sh/uv/) on PATH:
+
+- **Schema loader** (`scripts/schema_loader.py`) — introspects the live API and
+  prints the path to the downloaded schema (SDL).
+- **Validator** (`scripts/validate_query.py`) — checks a query/mutation against
+  the schema with `graphql-core` (spec-complete, with "did you mean" hints).
+- **Executor** (`scripts/execute_query.py`) — runs a query against the endpoint
+  and prints the JSON response.
+
+The schema is **fetched live** via introspection (not embedded), so it never
+goes stale. The scripts run via `uv`, which installs their one dependency
+(`graphql-core`) on first use — nothing is added to global site-packages.
+
+1. **Install and enable it:**
+
+   ```
+   /plugin marketplace add mapped/claude-plugins
+   /plugin install mapped-graphql@mapped
+   ```
+
+2. **Provide your credential** for the executor (the schema loader and validator
+   need none). Requests send `Authorization: token ${MAPPED_PAT}`, so export your
+   PAT before launching Claude Code:
+
+   ```bash
+   export MAPPED_PAT=<your-mapped-pat>
+   ```
+
+See [`mapped-graphql/README.md`](./mapped-graphql/README.md) for the full tool
+reference, flags, and examples.

@@ -1,0 +1,12 @@
+{
+  "name": "mapped-graphql",
+  "version": "0.1.0",
+  "description": "Three tools for the Mapped GraphQL API: a schema loader (downloads the schema via introspection and returns its file path), a graphql-core based query validator, and an executor that runs a query against the endpoint. Python scripts run via uv; auth uses Authorization: token $MAPPED_PAT.",
+  "author": {
+    "name": "Mapped",
+    "email": "jason@mapped.com"
+  },
+  "homepage": "https://github.com/mapped/claude-plugins",
+  "repository": "https://github.com/mapped/claude-plugins",
+  "keywords": ["mapped", "graphql", "schema", "validator", "execute", "sdl", "introspection"]
+}

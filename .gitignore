@@ -1,0 +1,6 @@
+# Python bytecode cache (generated when the validator imports its sibling module)
+__pycache__/
+*.pyc
+
+# Local env / secrets (e.g. direnv with MAPPED_PAT) — never commit
+.envrc
