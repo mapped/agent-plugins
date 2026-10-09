@@ -1,6 +1,6 @@
 {
   "name": "mapped-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Access Mapped's building data graph via the mapped-mcp server: generate and run Mapped GraphQL queries from natural language, and explore the Mapped ontology — entity-type hierarchy, tag search, and type definitions.",
   "author": {
     "name": "Mapped",
@@ -12,10 +12,7 @@
   "mcpServers": {
     "mapped": {
       "type": "http",
-      "url": "https://mcp.mapped.com/mcp",
-      "headers": {
-        "Authorization": "token ${MAPPED_PAT}"
-      }
+      "url": "https://mcp.mapped.com/mcp"
     }
   }
 }
