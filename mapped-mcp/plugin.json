@@ -18,7 +18,7 @@
         "shortDescription": "Query Mapped building data",
         "longDescription": "Connects ChatGPT to Mapped's building data graph through the hosted mapped-mcp server. GraphQL: turn a natural-language request into a Mapped GraphQL query (graphql_gen), or generate it and run it against the Mapped API, returning both the query and its data (graphql_gen_with_results). Ontology: list every descendant of an entity type (get_all_children_types), find types by the tags in their names (search_entity_types), and read a type's full definition with its properties and relationships (get_entity_type_details). Accounts: list the orgs in your Mapped account (list_account_orgs). Everything runs under your own Mapped sign-in and permissions.",
         "developerName": "Mapped",
-        "category": "Developer Tools",
+        "category": "Data & Analytics",
         "capabilities": ["Read"],
         "websiteURL": "https://www.mapped.com",
         "supportURL": "https://www.mapped.com/contact",
