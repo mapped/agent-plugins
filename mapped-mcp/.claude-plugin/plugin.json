@@ -9,10 +9,5 @@
   "homepage": "https://github.com/mapped/mapped-mcp",
   "repository": "https://github.com/mapped/mapped-mcp",
   "keywords": ["mcp", "mapped", "graphql", "ontology"],
-  "mcpServers": {
-    "mapped": {
-      "type": "http",
-      "url": "https://mcp.mapped.com/mcp"
-    }
-  }
+  "mcpServers": "./mcp.json"
 }

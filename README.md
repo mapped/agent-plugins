@@ -16,8 +16,7 @@ can be added and installed directly.
 Wraps the [mapped-mcp](https://github.com/mapped/mapped-mcp) server's tools
 (`graphql_gen`, `graphql_gen_with_results`, and the ontology lookups) over HTTP.
 The plugin connects to Mapped's hosted instance at `https://mcp.mapped.com/mcp`.
-(Self-hosting? Edit `url` in `mapped-mcp/.claude-plugin/plugin.json` and
-`mapped-mcp/mcp.json`.)
+(Self-hosting? Edit `url` in `mapped-mcp/mcp.json`; both clients read it.)
 
 **Auth is OAuth only — no PAT, no headers.** The manifests carry no credential.
 The server answers unauthenticated requests with OAuth discovery metadata
@@ -51,8 +50,10 @@ The same directory is also a portable
 [Agent Plugin](https://developers.openai.com/plugins/build/plugins) for ChatGPT
 and Codex: `mapped-mcp/plugin.json` is the manifest and `mapped-mcp/mcp.json`
 declares the `mapped` server (`streamable-http`, same endpoint, same OAuth
-sign-in declared as `client.mode: "cimd"`). Claude Code ignores both files; it
-reads `.claude-plugin/plugin.json`.
+sign-in declared as `client.mode: "cimd"`). The Claude manifest
+(`.claude-plugin/plugin.json`) points its `mcpServers` at that same `mcp.json`,
+so the server is defined once; Claude Code ignores the OpenAI `extensions`
+block and reads nothing else from `plugin.json`.
 
 - **Repo / CLI:** `.agents/plugins/marketplace.json` lists the plugin, so
   `codex plugin marketplace add mapped/agent-plugins` (or `add .` from a
