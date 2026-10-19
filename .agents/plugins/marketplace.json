@@ -1,0 +1,12 @@
+{
+  "name": "mapped",
+  "interface": { "displayName": "Mapped" },
+  "plugins": [
+    {
+      "name": "mapped-mcp",
+      "source": { "source": "local", "path": "./mapped-mcp" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    }
+  ]
+}

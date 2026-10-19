@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mapped-mcp",
+  "version": "0.1.0",
+  "description": "Access Mapped's building data graph via the mapped-mcp server: generate and run Mapped GraphQL queries from natural language, and explore the Mapped ontology — entity-type hierarchy, tag search, and type definitions.",
+  "author": {
+    "name": "Mapped",
+    "email": "jason@mapped.com",
+    "url": "https://www.mapped.com"
+  },
+  "homepage": "https://github.com/mapped/mapped-mcp",
+  "repository": "https://github.com/mapped/agent-plugins",
+  "keywords": ["mcp", "mapped", "graphql", "ontology", "buildings"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mapped",
+        "shortDescription": "Query Mapped building data",
+        "longDescription": "Connects ChatGPT to Mapped's building data graph through the hosted mapped-mcp server. GraphQL: turn a natural-language request into a Mapped GraphQL query (graphql_gen), or generate it and run it against the Mapped API, returning both the query and its data (graphql_gen_with_results). Ontology: list every descendant of an entity type (get_all_children_types), find types by the tags in their names (search_entity_types), and read a type's full definition with its properties and relationships (get_entity_type_details). Accounts: list the orgs in your Mapped account (list_account_orgs). Everything runs under your own Mapped sign-in and permissions.",
+        "developerName": "Mapped",
+        "category": "Developer Tools",
+        "capabilities": ["Read"],
+        "websiteURL": "https://www.mapped.com",
+        "supportURL": "https://www.mapped.com/contact",
+        "privacyPolicyURL": "https://www.mapped.com/legal/privacy-policy",
+        "termsOfServiceURL": "https://www.mapped.com/legal/CustomerAgreement",
+        "defaultPrompt": [
+          "Use Mapped to list the buildings in my org",
+          "Use Mapped to find the temperature sensors on a floor",
+          "Use Mapped to explain the Temperature_Sensor entity type"
+        ],
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png"
+      }
+    }
+  }
+}

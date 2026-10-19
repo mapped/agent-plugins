@@ -12,10 +12,7 @@
   "mcpServers": {
     "mapped": {
       "type": "http",
-      "url": "https://mcp.mapped.com/mcp",
-      "headers": {
-        "Authorization": "token ${MAPPED_PAT}"
-      }
+      "url": "https://mcp.mapped.com/mcp"
     }
   }
 }
