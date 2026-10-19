@@ -14,87 +14,53 @@ can be added and installed directly.
 ### `mapped-mcp`
 
 Wraps the [mapped-mcp](https://github.com/mapped/mapped-mcp) server's tools
-(`graphql_gen`, `graphql_gen_with_results`) over HTTP. The plugin connects to
-Mapped's hosted instance at `https://mcp.mapped.com/mcp`, so all you need is a
-credential. (Self-hosting? Edit `url` in `mapped-mcp/.claude-plugin/plugin.json`.)
+(`graphql_gen`, `graphql_gen_with_results`, and the ontology lookups) over HTTP.
+The plugin connects to Mapped's hosted instance at `https://mcp.mapped.com/mcp`.
+(Self-hosting? Edit `url` in `mapped-mcp/.claude-plugin/plugin.json` and
+`mapped-mcp/mcp.json`.)
 
-1. **Provide your credential.** Each tool call relays an `Authorization` header;
-   the plugin sends `token ${MAPPED_PAT}`, which Claude Code expands from your
-   environment at connect time (the server exchanges the PAT for a JWT via the
-   vault micro). **Never put the token in the plugin manifest** — it's committed
-   to this marketplace. Supply it through your own config instead; pick one:
+**Auth is OAuth only — no PAT, no headers.** The manifests carry no credential.
+The server answers unauthenticated requests with OAuth discovery metadata
+(`/.well-known/oauth-protected-resource`), and you sign in with Mapped SSO
+(`https://sso.mapped.com`: Client ID Metadata Document + PKCE, so there is no
+client registration and no secret). The client stores and refreshes the token;
+nothing is written to this repo.
 
-   - **Recommended — project-local settings.** `.claude/settings.local.json` in
-     the repo you launch Claude Code from (Claude Code keeps this file out of
-     git):
-
-     ```json
-     {
-       "env": {
-         "MAPPED_PAT": "your-mapped-pat"
-       }
-     }
-     ```
-
-   - **All your projects** — the same `env` block in `~/.claude/settings.json`.
-
-   - **Quick / one-off** — export it before launching Claude Code:
-
-     ```bash
-     export MAPPED_PAT=<your-mapped-pat> && claude
-     ```
-
-   Do **not** put the PAT in a git-committed `.claude/settings.json`. `${VAR}`
-   expansion is supported in MCP `headers`, so the manifest stays secret-free and
-   each user supplies their own value.
-
-   To avoid storing the PAT on disk at all, replace the static header in
-   `mapped-mcp/.claude-plugin/plugin.json` with a `headersHelper` that fetches it
-   from a secret manager at connect time (its stdout JSON becomes the headers):
-
-   ```json
-   "mapped": {
-     "type": "http",
-     "url": "https://mcp.mapped.com/mcp",
-     "headersHelper": "echo \"{\\\"Authorization\\\": \\\"token $(op read op://vault/mapped/pat)\\\"}\""
-   }
-   ```
-
-2. **Install and enable it:**
+1. **Install and enable it:**
 
    ```
-   /plugin marketplace add mapped/claude-plugins
+   /plugin marketplace add mapped/agent-plugins
    /plugin install mapped-mcp@mapped
    ```
 
-   The `graphql_gen` and `graphql_gen_with_results` tools then appear under the
-   `mapped` server.
+2. **Sign in:** run `/mcp`, select the `mapped` server, choose **Authenticate**,
+   and complete the browser login. The `graphql_gen` and
+   `graphql_gen_with_results` tools then appear under the `mapped` server. Use
+   **Clear authentication** in the same menu to sign out.
 
 #### On Claude on the web (claude.ai/code)
 
-Web sessions run in an Anthropic-managed cloud VM. The plugin's
-`https://mcp.mapped.com/mcp` endpoint is publicly reachable, so it works from web
-sessions — two things differ from desktop:
+Web sessions run in an Anthropic-managed cloud VM with no local browser for the
+OAuth sign-in. The simplest route there is to add Mapped as a custom connector on
+claude.ai (Settings → Connectors → Add custom connector, URL
+`https://mcp.mapped.com/mcp`); it uses the same OAuth sign-in.
 
-- **Config must be committed to the repo.** User-scoped `/plugin install` and
-  `~/.claude/settings.json` don't carry into web sessions — only repo config is
-  cloned in. Declare the marketplace and enable the plugin in the repo's
-  `.claude/settings.json`:
+#### On ChatGPT / Codex
 
-  ```json
-  {
-    "extraKnownMarketplaces": {
-      "mapped": { "source": { "source": "github", "repo": "mapped/claude-plugins" } }
-    },
-    "enabledPlugins": ["mapped-mcp@mapped"]
-  }
-  ```
+The same directory is also a portable
+[Agent Plugin](https://developers.openai.com/plugins/build/plugins) for ChatGPT
+and Codex: `mapped-mcp/plugin.json` is the manifest and `mapped-mcp/mcp.json`
+declares the `mapped` server (`streamable-http`, same endpoint, same OAuth
+sign-in declared as `client.mode: "cimd"`). Claude Code ignores both files; it
+reads `.claude-plugin/plugin.json`.
 
-- **Supply the PAT as an environment variable** in the session's environment
-  config (the web UI's *Environment variables*, `.env` format, no quotes):
-  `MAPPED_PAT=...`. `${VAR}` expansion runs the same as on desktop. Note: there's
-  no dedicated secrets store yet — the value is visible to anyone who can edit
-  that environment.
+- **Repo / CLI:** `.agents/plugins/marketplace.json` lists the plugin, so
+  `codex plugin marketplace add mapped/agent-plugins` (or `add .` from a
+  checkout) makes it installable; enable it per repo with
+  `[plugins."mapped-mcp@mapped"] enabled = true` in your Codex config.
+- **Workspace / public directory:** upload the `mapped-mcp/` directory on the
+  [ChatGPT Plugins](https://chatgpt.com/plugins) page and follow the
+  [submission guide](https://developers.openai.com/plugins/deploy/submission).
 
 ### `mapped-graphql`
 
