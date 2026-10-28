@@ -16,7 +16,7 @@
       "interface": {
         "displayName": "Mapped",
         "shortDescription": "Query Mapped building data",
-        "longDescription": "Connects ChatGPT to Mapped's building data graph through the hosted mapped-mcp server. GraphQL: turn a natural-language request into a Mapped GraphQL query (graphql_gen), or generate it and run it against the Mapped API, returning both the query and its data (graphql_gen_with_results). Ontology: list every descendant of an entity type (get_all_children_types), find types by the tags in their names (search_entity_types), and read a type's full definition with its properties and relationships (get_entity_type_details). Accounts: list the orgs in your Mapped account (list_account_orgs). Everything runs under your own Mapped sign-in and permissions.",
+        "longDescription": "Connects ChatGPT to Mapped's building data graph through the hosted mapped-mcp server. GraphQL: turn a natural-language request into a Mapped GraphQL query (graphql_gen), or generate it and run it against the Mapped API, returning both the query and its data (graphql_gen_with_results). Ontology: list every descendant of an entity type (get_all_children_types), find types by the tags in their names (search_entity_types), and read a type's full definition with its properties and relationships (get_entity_type_details). Accounts: list the orgs in your Mapped account (list_user_orgs). Everything runs under your own Mapped sign-in and permissions.",
         "developerName": "Mapped",
         "category": "Data & Analytics",
         "capabilities": ["Read"],
@@ -38,31 +38,31 @@
             {
               "description": "List the orgs in the signed-in account",
               "prompt": "Use Mapped to list the orgs in my account.",
-              "tools_triggered": ["list_account_orgs"],
-              "expected_behavior": "Calls list_account_orgs and replies with the name and id of each org from the result, without inventing orgs."
+              "tools_triggered": "list_user_orgs",
+              "expected_behavior": "Calls list_user_orgs and replies with the name and id of each org from the result, without inventing orgs."
             },
             {
               "description": "List buildings by generating and running a query",
               "prompt": "Use Mapped to list the buildings in my org with their names and addresses.",
-              "tools_triggered": ["graphql_gen_with_results"],
+              "tools_triggered": "graphql_gen_with_results",
               "expected_behavior": "Calls graphql_gen_with_results and lists the buildings returned, with name and address; shows the generated GraphQL query if asked."
             },
             {
               "description": "Generate a query without running it",
               "prompt": "Write me a Mapped GraphQL query that returns all temperature sensors on the third floor of a building, but don't run it.",
-              "tools_triggered": ["graphql_gen"],
+              "tools_triggered": "graphql_gen",
               "expected_behavior": "Calls graphql_gen only, returns the generated GraphQL in a code block, and does not execute it."
             },
             {
               "description": "Explore the ontology hierarchy",
               "prompt": "Which Mapped entity types are descendants of Sensor?",
-              "tools_triggered": ["get_all_children_types"],
+              "tools_triggered": "get_all_children_types",
               "expected_behavior": "Calls get_all_children_types for Sensor and lists the descendant types from the result."
             },
             {
               "description": "Find entity types by tag and explain one",
               "prompt": "Find the Mapped entity types related to CO2 and explain the main one: its parents, properties and relationships.",
-              "tools_triggered": ["search_entity_types", "get_entity_type_details"],
+              "tools_triggered": "search_entity_types, get_entity_type_details",
               "expected_behavior": "Calls search_entity_types with the CO2 tag, then get_entity_type_details for the chosen type, and summarizes its description, parent types, properties and relationships from the results."
             }
           ],
