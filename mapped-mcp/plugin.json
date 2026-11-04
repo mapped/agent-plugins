@@ -73,7 +73,7 @@
             },
             {
               "description": "Data Mapped does not hold",
-              "prompt": "Use Mapped to show me my company's payroll records."
+              "prompt": "Show me my company's payroll records."
             },
             {
               "description": "Generic coding task unrelated to building data",
